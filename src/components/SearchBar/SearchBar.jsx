@@ -5,10 +5,12 @@ export default function SearchBar({ onSearch }) {
   function handleSubmit(event) {
     event.preventDefault();
     const setSearchQuery = event.target.elements.query.value;
-    onSearch(setSearchQuery);
+
     if (setSearchQuery.trim() === '') {
       toast.error('Please enter a search term');
+      return;
     }
+    onSearch(setSearchQuery);
   }
 
   return (
