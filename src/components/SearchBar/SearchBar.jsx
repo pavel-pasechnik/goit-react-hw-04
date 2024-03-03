@@ -1,7 +1,10 @@
 import toast from 'react-hot-toast';
 import css from './SearchBar.module.css';
+import { useRef } from 'react';
 
 export default function SearchBar({ onSearch }) {
+  const formRef = useRef(null);
+
   function handleSubmit(event) {
     event.preventDefault();
     const setSearchQuery = event.target.elements.query.value;
@@ -11,12 +14,14 @@ export default function SearchBar({ onSearch }) {
       return;
     }
     onSearch(setSearchQuery);
+
+    formRef.current.reset();
   }
 
   return (
     <div className={css.container}>
       <header className={css.header}>
-        <form className={css.form} onSubmit={handleSubmit}>
+        <form ref={formRef} className={css.form} onSubmit={handleSubmit}>
           <input
             className={css.input}
             name='query'
